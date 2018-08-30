@@ -8,6 +8,11 @@ Create Database
 
 run php artisan migrate --seed
 
+Open Browser goto localhost:8000
+
+username: admin@admin.com
+password: password
+
 
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
