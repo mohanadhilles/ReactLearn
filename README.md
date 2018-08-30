@@ -2,7 +2,7 @@
 
 git clone https://github.com/mohanadhilles/ReactLearn.git
 
-go to dirctore and run Composer Update
+go to folder and run Composer Update
 
 Create Database 
 
