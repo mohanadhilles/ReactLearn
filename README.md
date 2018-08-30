@@ -1,3 +1,15 @@
+## how to use it
+
+git clone https://github.com/mohanadhilles/ReactLearn.git
+
+go to dirctore and run Composer Update
+
+Create Database 
+
+run php artisan migrate --seed
+
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
