@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Presence;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PresenceController extends Controller
@@ -35,7 +36,8 @@ class PresenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $leave = Presence::create($request->all());
+        return redirect('/home');
     }
 
     /**
@@ -55,9 +57,16 @@ class PresenceController extends Controller
      * @param  \App\Presence  $presence
      * @return \Illuminate\Http\Response
      */
-    public function edit(Presence $presence)
+    public function edit($id )
     {
-        //
+        $end = Carbon::now()->toDateTimeString();
+
+        $presence = Presence::findOrFail($id);
+        $id = Presence::find($id);
+
+        return view('employee.presence.edit', compact('presence','end'));
+
+
     }
 
     /**
@@ -67,9 +76,11 @@ class PresenceController extends Controller
      * @param  \App\Presence  $presence
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Presence $presence)
+    public function update(Request $request, $id )
     {
-        //
+        $presence = Presence::findOrFail($id);
+        $presence->update($request->all());
+        return redirect('/home');
     }
 
     /**

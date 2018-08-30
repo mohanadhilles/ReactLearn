@@ -50,7 +50,7 @@
                             @else
                                 <td>
                                <a href="{{ route('employee.permissions.show',[$permissions_managment->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
-
+                               <a href="{{ route('employee.permissions.edit',[$permissions_managment->id]) }}" class="btn btn-xs btn-info"> تسجيل ساعة العودة</a>
                                 </td>
                             @endif
                         </tr>

@@ -14,19 +14,19 @@
                     <table class="table table-bordered table-striped">
                         <tr>
                             <th>@lang('quickadmin.leave.fields.day')</th>
-                            <td field-key='day'>{{ $leaf->day }}</td>
+                            <td field-key='day'>{{ $leave->day }}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.leave.fields.reason')</th>
-                            <td field-key='reason'>{!! $leaf->reason !!}</td>
+                            <td field-key='reason'>{!! $leave->reason !!}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.leave.fields.status')</th>
-                            <td field-key='status'>{{ $leaf->status }}</td>
+                            <td field-key='status'>{{ $leave->status }}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.leave.fields.employee')</th>
-                            <td field-key='employee'>{{ $leaf->employee->name or '' }}</td>
+                            <td field-key='employee'>{{ $leave->employee->name or '' }}</td>
                         </tr>
                     </table>
                 </div>

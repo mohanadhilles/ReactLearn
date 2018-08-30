@@ -103,5 +103,9 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role_id, [1]);
         });
 
+        Gate::define('employee', function ($user) {
+            return in_array($user->role_id, [2]);
+        });
+
     }
 }

@@ -71,9 +71,15 @@ class PresenceController extends Controller
     }
 
 
-    public function show(Presence $presence)
+    public function show($id )
     {
-        //
+        if (! Gate::allows('permissions_managment_view')) {
+            return abort(401);
+        }
+        $leaf = Presence::findOrFail($id);
+
+        return view('admin.presence.show', compact('leaf'));
+
     }
 
     public function edit($id)
@@ -87,16 +93,23 @@ class PresenceController extends Controller
 
         $employees = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
         $presence = Presence::findOrFail($id);
+        $id = Presence::find($id);
 
-        return view('admin.presence.edit', compact('presence','employees', 'start','end'));
+        return view('admin.presence.edit', compact('presence','employees', 'start','end','id'));
 
 
     }
 
 
-    public function update(Request $request, Presence $presence)
+    public function update(Request $request,  $id)
     {
-        //
+        if (! Gate::allows('permissions_managment_edit')) {
+            return abort(401);
+        }
+        $presence = Presence::findOrFail($id);
+        $presence->update($request->all());
+        return redirect()->route('admin.presence.index');
+
     }
 
     /**
@@ -105,8 +118,62 @@ class PresenceController extends Controller
      * @param  \App\Presence  $presence
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Presence $presence)
+    public function destroy($id )
     {
-        //
+        if (! Gate::allows('permissions_managment_delete')) {
+            return abort(401);
+        }
+        $presence = Presence::findOrFail($id);
+        $presence->delete();
+
+        return redirect()->route('admin.presence.index');
+    }
+    public function massDestroy(Request $request)
+    {
+        if (! Gate::allows('permissions_managment_delete')) {
+            return abort(401);
+        }
+        if ($request->input('ids')) {
+            $entries = Presence::whereIn('id', $request->input('ids'))->get();
+
+            foreach ($entries as $entry) {
+                $entry->delete();
+            }
+        }
+    }
+
+
+    /**
+     * Restore PermissionsManagment from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        if (! Gate::allows('permissions_managment_delete')) {
+            return abort(401);
+        }
+        $presence = Presence::onlyTrashed()->findOrFail($id);
+        $presence->restore();
+
+        return redirect()->route('admin.presence.index');
+    }
+
+    /**
+     * Permanently delete PermissionsManagment from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function perma_del($id)
+    {
+        if (! Gate::allows('permissions_managment_delete')) {
+            return abort(401);
+        }
+        $presence = Presence::onlyTrashed()->findOrFail($id);
+        $presence->forceDelete();
+
+        return redirect()->route('admin.$presence.index');
     }
 }

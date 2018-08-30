@@ -59,6 +59,7 @@
                 </a>
             </li>@endcan
 
+
             @can('leave_access')
                 <li>
                     <a href="{{ route('admin.presence.index') }}">
@@ -67,9 +68,13 @@
                     </a>
                 </li>@endcan
 
-
-
-
+           @can('employee')
+            <li>
+                <a href="">
+                    <i class="fa fa-gears"></i>
+                    <span>  تسجيل الحضور</span>
+                </a>
+            </li>
 
 
                 <li>
@@ -86,7 +91,9 @@
                         <span>تقديم طلب اجازة</span>
                     </a>
                 </li>
+            @else
 
+            @endcan
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                 <a href="{{ route('auth.change_password') }}">
